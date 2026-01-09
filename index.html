@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Desafios Vetoriais – Game Educacional</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:'Segoe UI',Arial,sans-serif;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:#fff;
+}
+
+header{
+text-align:center;
+padding:30px;
+background:rgba(0,0,0,.7);
+border-bottom:2px solid #4fc3f7;
+}
+
+.container{
+max-width:650px;
+margin:auto;
+padding:20px;
+}
+
+.progress{
+height:12px;
+background:#333;
+border-radius:10px;
+overflow:hidden;
+margin-bottom:30px;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:#4fc3f7;
+transition:.5s;
+box-shadow:0 0 10px #4fc3f7;
+}
+
+.card{
+background:rgba(30,42,56,.95);
+border-radius:16px;
+padding:25px;
+margin-bottom:25px;
+box-shadow:0 10px 25px rgba(0,0,0,.4);
+border:1px solid rgba(79,195,247,.2);
+}
+
+h2{color:#4fc3f7;margin-top:0;}
+
+label{
+display:block;
+margin-top:12px;
+color:#b0bec5;
+font-size:.9rem;
+}
+
+input, select{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #37474f;
+background:#263238;
+color:#fff;
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:8px;
+background:#4fc3f7;
+color:#000;
+font-weight:bold;
+cursor:pointer;
+text-transform:uppercase;
+}
+
+.feedback{
+display:none;
+margin-top:15px;
+background:rgba(0,0,0,.35);
+padding:15px;
+border-radius:10px;
+border-left:4px solid #4fc3f7;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🎮 Desafios Vetoriais</h1>
+<p>Laboratório Gamificado de Física</p>
+</header>
+
+<div class="container">
+
+<div class="progress">
+<div id="barra" class="progress-bar"></div>
+</div>
+
+<!-- MISSÃO CONCEITUAL 1 -->
+<div class="card">
+<h2>🧠 Fase 1 – O que é um vetor?</h2>
+<p>Qual alternativa representa corretamente uma grandeza vetorial?</p>
+
+<select id="c1">
+<option value="">Escolha</option>
+<option value="a">Temperatura</option>
+<option value="b">Tempo</option>
+<option value="c">Força</option>
+<option value="d">Energia</option>
+</select>
+
+<button onclick="conceito1()">Responder</button>
+<div id="fc1" class="feedback"></div>
+</div>
+
+<!-- MISSÃO CONCEITUAL 2 -->
+<div class="card">
+<h2>🧠 Fase 2 – Características de um vetor</h2>
+<p>Um vetor é completamente definido por:</p>
+
+<select id="c2">
+<option value="">Escolha</option>
+<option value="a">Módulo apenas</option>
+<option value="b">Módulo e direção</option>
+<option value="c">Módulo, direção e sentido</option>
+<option value="d">Valor numérico</option>
+</select>
+
+<button onclick="conceito2()">Responder</button>
+<div id="fc2" class="feedback"></div>
+</div>
+
+<!-- FASE 5 -->
+<div class="card">
+<h2>📐 Fase 3 – Resultante de Vetores</h2>
+<label>Vetor X</label>
+<input id="fx" type="number" value="30">
+<label>Vetor Y</label>
+<input id="fy" type="number" value="40">
+<button onclick="fase5()">Calcular</button>
+<div id="fb5" class="feedback"></div>
+</div>
+
+<!-- FASE 6 -->
+<div class="card">
+<h2>🧭 Fase 4 – Direção da Resultante</h2>
+<label>Vx</label>
+<input id="fx6" type="number" value="10">
+<label>Vy</label>
+<input id="fy6" type="number" value="10">
+<button onclick="fase6()">Calcular Ângulo</button>
+<div id="fb6" class="feedback"></div>
+</div>
+
+<!-- FASE 7 -->
+<div class="card">
+<h2>🧩 Fase 5 – Decomposição Vetorial</h2>
+<label>Módulo do vetor</label>
+<input id="f7" type="number" value="50">
+<label>Ângulo (graus)</label>
+<input id="a7" type="number" value="30">
+<button onclick="fase7()">Decompor</button>
+<div id="fb7" class="feedback"></div>
+</div>
+
+<!-- FASE 8 -->
+<div class="card">
+<h2>🚀 Fase 6 – Vetor Velocidade (2D)</h2>
+<label>Vx</label>
+<input id="vx8" type="number" value="6">
+<label>Vy</label>
+<input id="vy8" type="number" value="8">
+<button onclick="fase8()">Calcular</button>
+<div id="fb8" class="feedback"></div>
+</div>
+
+<!-- FASE 9 -->
+<div class="card">
+<h2>📏 Fase 7 – Vetor Unitário</h2>
+<p>Calcule o vetor unitário associado à velocidade.</p>
+<label>Vx</label>
+<input id="vx9" type="number" value="3">
+<label>Vy</label>
+<input id="vy9" type="number" value="4">
+<button onclick="fase9()">Normalizar</button>
+<div id="fb9" class="feedback"></div>
+</div>
+
+<!-- FASE 10 -->
+<div class="card">
+<h2>🖌️ Fase 8 – Soma Vetorial Gráfica</h2>
+
+<label>Vetor A – Ax (u)</label>
+<input id="ax" type="number" value="4">
+<label>Vetor A – Ay (u)</label>
+<input id="ay" type="number" value="3">
+
+<label>Vetor B – Bx (u)</label>
+<input id="bx" type="number" value="2">
+<label>Vetor B – By (u)</label>
+<input id="by" type="number" value="1">
+
+<button onclick="fase10()">Desenhar Vetores</button>
+
+<canvas id="canvasVetores" width="500" height="400"
+style="margin-top:20px;background:#111;border-radius:12px;border:1px solid #4fc3f7">
+</canvas>
+
+<div id="fb10" class="feedback"></div>
+</div>
+
+
+<!-- RESULTADO -->
+<div class="card" style="text-align:center;border:2px solid #4fc3f7">
+<h2>🏆 Avaliação Final</h2>
+<button onclick="resultado()">Gerar Relatório</button>
+<div id="final" class="feedback"></div>
+</div>
+
+</div>
+
+<script>
+let fases = new Set();
+const total = 8;
+
+function barra(){
+document.getElementById("barra").style.width =
+(fases.size/total*100)+"%";
+}
+
+/* CONCEITOS */
+function conceito1(){
+let r=c1.value;
+fc1.style.display="block";
+if(r==="c"){
+fc1.innerHTML="✅ Correto! Força possui módulo, direção e sentido.";
+fases.add("c1");
+}else{
+fc1.innerHTML="❌ Essas grandezas são escalares.";
+}
+barra();
+}
+
+function conceito2(){
+let r=c2.value;
+fc2.style.display="block";
+if(r==="c"){
+fc2.innerHTML="✅ Perfeito! Vetores exigem módulo, direção e sentido.";
+fases.add("c2");
+}else{
+fc2.innerHTML="❌ Um vetor não é definido apenas por valor numérico.";
+}
+barra();
+}
+
+/* NUMÉRICAS */
+function fase5(){
+let r=Math.sqrt(fx.value**2+fy.value**2);
+fb5.innerHTML=`✅ Resultante = <b>${r.toFixed(2)}</b>`;
+fb5.style.display="block";
+fases.add(5); barra();
+}
+
+function fase6(){
+let ang=Math.atan2(fy6.value,fx6.value)*180/Math.PI;
+fb6.innerHTML=`🧭 Ângulo = <b>${ang.toFixed(1)}°</b>`;
+fb6.style.display="block";
+fases.add(6); barra();
+}
+
+function fase7(){
+let fx=f7.value*Math.cos(a7.value*Math.PI/180);
+let fy=f7.value*Math.sin(a7.value*Math.PI/180);
+fb7.innerHTML=`Fx=${fx.toFixed(2)} | Fy=${fy.toFixed(2)}`;
+fb7.style.display="block";
+fases.add(7); barra();
+}
+
+function fase8(){
+let v=Math.sqrt(vx8.value**2+vy8.value**2);
+fb8.innerHTML=`🚀 |V| = <b>${v.toFixed(2)}</b>`;
+fb8.style.display="block";
+fases.add(8); barra();
+}
+
+function fase9(){
+let v=Math.sqrt(vx9.value**2+vy9.value**2);
+fb9.innerHTML=`📏 u = (${(vx9.value/v).toFixed(2)}, ${(vy9.value/v).toFixed(2)})`;
+fb9.style.display="block";
+fases.add(9); barra();
+}
+
+function fase10(){
+const canvas = document.getElementById("canvasVetores");
+const ctx = canvas.getContext("2d");
+
+const ax = +document.getElementById("ax").value;
+const ay = +document.getElementById("ay").value;
+const bx = +document.getElementById("bx").value;
+const by = +document.getElementById("by").value;
+
+// Limpa canvas
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+// Origem
+const ox = canvas.width/2;
+const oy = canvas.height/2;
+
+// Escala automática
+const max = Math.max(
+Math.abs(ax),Math.abs(ay),
+Math.abs(ax+bx),Math.abs(ay+by)
+);
+const scale = 120/(max || 1);
+
+// Função para desenhar vetor
+function vetor(x0,y0,x,y,color,label){
+ctx.beginPath();
+ctx.moveTo(x0,y0);
+ctx.lineTo(x0+x*scale,y0-y*scale);
+ctx.strokeStyle=color;
+ctx.lineWidth=3;
+ctx.stroke();
+
+// seta
+ctx.beginPath();
+ctx.arc(x0+x*scale,y0-y*scale,4,0,2*Math.PI);
+ctx.fillStyle=color;
+ctx.fill();
+
+// texto
+ctx.fillStyle=color;
+ctx.font="14px Arial";
+ctx.fillText(label,x0+x*scale+5,y0-y*scale);
+}
+
+// Eixos
+ctx.strokeStyle="#444";
+ctx.beginPath();
+ctx.moveTo(0,oy);
+ctx.lineTo(canvas.width,oy);
+ctx.moveTo(ox,0);
+ctx.lineTo(ox,canvas.height);
+ctx.stroke();
+
+// Vetor A
+vetor(ox,oy,ax,ay,"#4fc3f7","A");
+
+// Vetor B (a partir da ponta de A)
+vetor(ox+ax*scale,oy-ay*scale,bx,by,"#ffca28","B");
+
+// Resultante R
+vetor(ox,oy,ax+bx,ay+by,"#e91e63","R");
+
+const rx = ax + bx;
+const ry = ay + by;
+const r = Math.sqrt(rx*rx + ry*ry);
+
+fases.add(10);
+barra();
+
+fb10.innerHTML = `
+🧮 <b>Resultante:</b><br>
+Rx = ${rx.toFixed(2)}<br>
+Ry = ${ry.toFixed(2)}<br>
+|R| = ${r.toFixed(2)} u<br><br>
+💡 <i>A soma vetorial gráfica segue a regra "ponta com cauda".</i>
+`;
+fb10.style.display="block";
+}
+
+function resultado(){
+let pts=fases.size*10;
+let nivel=pts>=80?"🔴 Mestre Vetorial":pts>=50?"🔵 Explorador":"🟢 Aprendiz";
+final.innerHTML=`<b>${nivel}</b><br>Pontuação: ${pts}`;
+final.style.display="block";
+}
+
+</script>
+
+</body>
+</html>
